@@ -1,15 +1,18 @@
 const express = require("express");
 const app = express();
-const dotenv = require("dotenv");
-dotenv.config();
-const PORT = process.env.PORT || 1234;
+const appEnv = require("./conf/appEnv");
+const dbConnect = require("./conf/dbConnect");
+const userModel = require("./models/User");
 
-app.get("*", (req, res) => {
-  res.send("Backend running");
+dbConnect.connnectDb();
+
+app.get("*", async (req, res) => {
+  let resp = await userModel.create({
+    name: "Random name",
+  });
+  res.send({ status: true, resp: resp });
 });
 
-console.log(PORT);
-
-app.listen(PORT, () => {
-  console.log("Backend server started at " + PORT);
+app.listen(appEnv.PORT, () => {
+  console.log("Backend server started at " + appEnv.PORT);
 });
