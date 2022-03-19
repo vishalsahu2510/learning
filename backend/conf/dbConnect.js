@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const dbUri = require("./appEnv").DB_URI;
+const dbURI = require("./appEnv").DB_URI;
 
 mongoose.connection.on("open", function (ref) {
   console.log("Connected to mongo server.");
@@ -11,7 +11,7 @@ mongoose.connection.on("error", function (err) {
 });
 
 async function connnectDb() {
-  mongoose.connect(dbUri);
+  mongoose.connect(dbURI);
 }
 
 module.exports = { connnectDb };
